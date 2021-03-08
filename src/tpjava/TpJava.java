@@ -41,7 +41,6 @@ public class TpJava {
 
     public static Matrice calculProduitThread(Matrice m1, Matrice m2) {
         Matrice p = new Matrice(m1.getLine(), m2.getCol());
-        long m[][] = null;
 
         ThreadMatrice thread;
         for (int i = 0; i < m1.getCol(); i++) {
@@ -73,11 +72,11 @@ public class TpJava {
 //      Temps d'execution sans affichage
         long begin = System.currentTimeMillis();
         resultat = calculProduitThread(m1, m2);
-        resultat2 = calculProduitSimple(m1, m2);
+//        resultat2 = calculProduitSimple(m1, m2);
         long finish = System.currentTimeMillis();
 
         System.out.println(resultat.affiche());
-        System.out.println(resultat2.affiche());
+//        System.out.println(resultat2.affiche());
         System.out.println("Durrée = " + (finish - begin) + " ms");
     }
 

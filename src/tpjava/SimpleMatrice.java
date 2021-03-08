@@ -28,13 +28,13 @@ public class SimpleMatrice{
      */
     public long[][] prouduitMatrice(long[][] m1, long[][] m2) {
         long matriceProd[][];
-
+//      m1 * m2
         if (m1[0].length == m2.length) {
             matriceProd = new long[m1.length][m2[0].length];
-            for (int i = 0; i < m1.length; i++) {// 0 1 2 3
-                for (int j = 0; j < m2[0].length; j++) { // 0 1
+            for (int i = 0; i < m1.length; i++) {// line m1
+                for (int j = 0; j < m2[0].length; j++) { // colonm m2
                     matriceProd[i][j] = 0;
-                    for (int k = 0; k < m1[0].length; k++) { // 0 1 2
+                    for (int k = 0; k < m2.length; k++) { // line m2
                         matriceProd[i][j] += m1[i][k] * m2[k][j];
                     }
                 }
@@ -42,13 +42,13 @@ public class SimpleMatrice{
             this.matriceP = matriceProd;
             return this.matriceP;
         }
-
+//      m2 * m1
         if (m2[0].length == m1.length) {
             matriceProd = new long[m2.length][m1[0].length];
-            for (int i = 0; i < m2.length; i++) {// 0 1 2 3
-                for (int j = 0; j < m1[0].length; j++) { // 0 1
+            for (int i = 0; i < m2.length; i++) {// line m2
+                for (int j = 0; j < m1[0].length; j++) { // colomn m1
                     matriceProd[i][j] = 0;
-                    for (int k = 0; k < m2[0].length; k++) { // 0 1 2
+                    for (int k = 0; k < m1.length; k++) { // line m1
                         matriceProd[i][j] += m2[i][k] * m1[k][j];
                     }
                 }

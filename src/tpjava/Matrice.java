@@ -5,6 +5,8 @@
  */
 package tpjava;
 
+import java.util.Arrays;
+
 /**
  *
  * @author i-Faly
@@ -27,6 +29,7 @@ public class Matrice {
         this.line = line;
         this.m = new long[line][col];
     }
+    
 
     public Matrice(long m[][]) {
         this.m = m;
@@ -38,10 +41,6 @@ public class Matrice {
         return m;
     }
 
-    public void setM(long[][] m) {
-        this.m = m;
-    }
-
     public long[] getCol(int colN) {
         long columnN[] = new long[this.line];
         for (int i = 0; i < this.line; i++) {
@@ -50,8 +49,8 @@ public class Matrice {
         return columnN;
     }
 
-    public void set(int line, int col, int valeur) {
-        m[line][col] = valeur;
+    public void setMatrice(long[] lineM, int i ){
+        this.m[i] = lineM;
     }
 
     public long[] getLine(int lineN) {
@@ -70,10 +69,20 @@ public class Matrice {
         return line;
     }
 
-    public long get(int l, int c) {
-        return m[l][c];
+    
+     public String affiche() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[").append("\n");
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                builder.append(m[i][j]).append("\t");
+            }
+            builder.append("\n");
+        }
+        builder.append("]").append("\n");
+        return builder.toString();
     }
-
+    
     @Override
     public String toString() {
         return "Matrice{" + "col=" + col + ", line=" + line + ", m=" + m + '}';
