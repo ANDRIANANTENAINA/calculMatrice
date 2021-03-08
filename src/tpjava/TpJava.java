@@ -5,7 +5,6 @@
  */
 package tpjava;
 
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,9 +15,11 @@ import java.util.logging.Logger;
 public class TpJava {
 
     /**
-     * @param args the command line arguments
+     * @param taileLine
+     * @param taileCol
+     * @return
      */
-    public long[][] generateMatrice(int taileLine, int taileCol) {
+    public static long[][] generateMatrice(int taileLine, int taileCol) {
         long[][] matrice = new long[taileLine][taileCol];
         for (int i = 0; i < taileLine; i++) {
 
@@ -26,6 +27,7 @@ public class TpJava {
         for (int i = 0; i < taileCol; i++) {
 
         }
+
         return matrice;
     }
 
@@ -33,10 +35,14 @@ public class TpJava {
         Matrice p;
         SimpleMatrice prod = new SimpleMatrice();
         p = new Matrice(prod.prouduitMatrice(m1.getM(), m2.getM()));
+
         return p;
     }
 
     public static Matrice calculProduitThread(Matrice m1, Matrice m2) {
+        Matrice p = new Matrice(m1.getLine(), m2.getCol());
+        long m[][] = null;
+
         ThreadMatrice thread;
         for (int i = 0; i < m1.getCol(); i++) {
             thread = new ThreadMatrice(m1.getLine(i), m2.getM());
@@ -46,9 +52,11 @@ public class TpJava {
             } catch (InterruptedException ex) {
                 Logger.getLogger(TpJava.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println(Arrays.toString(thread.getLineResult()));
+            p.setMatrice(thread.getLineResult(), i);
+
         }
-        return null;
+
+        return p;
     }
 
     public static void main(String[] args) {
@@ -57,19 +65,20 @@ public class TpJava {
         long[][] c = {{1, 2, 3}, {4, 5, 6}, {4, 5, 6}};
         long[][] d = {{1, 2}, {3, 4}, {5, 6}};
         long[][] e = {{1, 2, 3}, {1, 2, 3}, {1, 2, 3}};
-        long[][] p;
-        Matrice m1, m2, resultat;
-        m1 = new Matrice(a);
-        m2 = new Matrice(b);
 
+        Matrice m1, m2, resultat, resultat2;
+        m1 = new Matrice(c);
+        m2 = new Matrice(d);
 
 //      Temps d'execution sans affichage
         long begin = System.currentTimeMillis();
-        resultat = calculProduitSimple(m1, m2);
+        resultat = calculProduitThread(m1, m2);
+        resultat2 = calculProduitSimple(m1, m2);
         long finish = System.currentTimeMillis();
-        
-        System.out.println("Durrée = " + (finish - begin) + " ms");
+
         System.out.println(resultat.affiche());
+        System.out.println(resultat2.affiche());
+        System.out.println("Durrée = " + (finish - begin) + " ms");
     }
 
 }
