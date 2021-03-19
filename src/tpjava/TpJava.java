@@ -28,7 +28,7 @@ public class TpJava {
         long[][] matrice = new long[taileLine][taileCol];
         for (int i = 0; i < taileLine; i++) {
             for (int j = 0; j < taileCol; j++) {
-                matrice[i][j] = rand.nextInt(100);
+                matrice[i][j] = rand.nextInt(10);
 
             }
         }
@@ -45,14 +45,14 @@ public class TpJava {
 
     public static Matrice calculProduitThread(Matrice m1, Matrice m2) {
         Matrice p = new Matrice(m1.getLine(), m2.getCol());
-        ThreadMatrice thread[] = new ThreadMatrice[m1.getCol()];
+        ThreadMatrice thread[] = new ThreadMatrice[m2.getCol()];
 //      lance les threads
-        for (int i = 0; i < m1.getCol(); i++) {
+        for (int i = 0; i < m2.getCol(); i++) {
             thread[i] = new ThreadMatrice(m1.getLine(i), m2.getM());
             thread[i].start();
         }
 //      recuperation 
-        for (int i = 0; i < m1.getCol(); i++) {
+        for (int i = 0; i < m2.getCol(); i++) {
             try {
                 thread[i].join();
             } catch (InterruptedException ex) {
@@ -68,22 +68,23 @@ public class TpJava {
     public static void main(String[] args) throws NoSuchAlgorithmException {
 
         Matrice m1, m2, resultat, resultat2;
-        m1 = new Matrice(generateMatrice(2000, 2000));
-        m2 = new Matrice(generateMatrice(2000, 2000));
+        m1 = new Matrice(generateMatrice(300, 400));
+        m2 = new Matrice(generateMatrice(400, 300));
+
+//        System.out.println(m1.affiche());
+//        System.out.println(m2.affiche());
 
 //      Temps d'execution sans affichage
         long begin = System.currentTimeMillis();
-//        resultat = calculProduitThread(m1, m2);
         resultat = calculProduitSimple(m1, m2);
         long finish = System.currentTimeMillis();
         
         long begin2 = System.currentTimeMillis();
-        resultat2 = calculProduitThread(m1, m2); // nombre de colnne threads m2 lancee
-//        resultat = calculProduitSimple(m1, m2);
+        resultat2 = calculProduitThread(m1, m2); // (nombre de colnne)threads m2 lancee
         long finish2 = System.currentTimeMillis();
 
-//        System.out.println(resultat.affiche());
-//        System.out.println(resultat2.affiche());
+        System.out.println(resultat.affiche());
+        System.out.println(resultat2.affiche());
         System.out.println("Durrée simple = " + (finish - begin) + " ms");
         System.out.println("Durrée thread = " + (finish2 - begin2) + " ms");
 
